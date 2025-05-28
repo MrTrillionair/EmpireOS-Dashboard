@@ -1,11 +1,59 @@
 {
   "name": "empireos-dashboard",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "description": "🚀 EmpireOS Dashboard with Morph UI, Secure Sync, and Real-Time Controls",
   "main": "main.js",
+  "author": "MrTrillionair",
+  "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish always"
   },
   "devDependencies": {
-    "electron": "^29.0.0"
+    "electron": "^29.0.0",
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.empireos.dashboard",
+    "productName": "EmpireOS Dashboard",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/*/{test,__tests__,example,examples}/**",
+      "!**/*.map",
+      "!**/.env",
+      "!**/*.log"
+    ],
+    "extraMetadata": {
+      "version": "1.1.0"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": ["dmg", "zip"],
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "publisherName": "EmpireOS Systems"
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"],
+      "icon": "build/icon.png",
+      "category": "Utility"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "MrTrillionair",
+        "repo": "Nexus-AGI",
+        "releaseType": "release"
+      }
+    ],
+    "asar": true,
+    "compression": "maximum"
   }
 }

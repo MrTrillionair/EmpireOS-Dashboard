@@ -4,11 +4,170 @@
   <meta charset='UTF-8' />
   <title>EmpireOS Dashboard</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #0a1a24;
+      color: #c9f4ff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-areas:
+        "infra map it"
+        "infra map analytics";
+      grid-template-columns: 1.2fr 2fr 1.2fr;
+      grid-template-rows: 1.2fr 1.2fr;
+      gap: 2vw;
+      padding: 2vw;
+    }
+    .panel {
+      background: rgba(18,40,60,0.94);
+      border-radius: 18px;
+      box-shadow: 0 0 24px #00cfff33;
+      padding: 2em;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .panel:hover {
+      box-shadow: 0 0 32px #00eaff99;
+    }
+    #infra { grid-area: infra; }
+    #map { grid-area: map; }
+    #it { grid-area: it; }
+    #analytics { grid-area: analytics; }
+    .panel h2 {
+      margin-top: 0;
+      letter-spacing: 1px;
+      color: #6cf;
+      font-size: 1.4em;
+    }
+    .morph-btn, .download-btn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      background: #00cfff;
+      color: #0a1a24;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      z-index: 2;
+    }
+    .download-btn {
+      right: 8.5em;
+      background: #ffb300;
+      color: #222;
+    }
+    .morph-btn:hover, .download-btn:hover { background: #0099bb; color: #fff; }
+    .status-bar {
+      background: #112233;
+      color: #7fffd4;
+      padding: 1em 2em;
+      font-size: 1.1em;
+      border-top: 2px solid #00cfff44;
+      letter-spacing: 1px;
+    }
+    .world-map {
+      width: 100%;
+      height: 320px;
+      background: url('./assets/Futuristic-Business-Control-Room-1.jpg') center/cover no-repeat;
+      border-radius: 12px;
+      margin-bottom: 1.2em;
+      filter: brightness(0.8) contrast(1.2);
+      box-shadow: 0 0 16px #00cfff55;
+    }
+    .mini-chart {
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(90deg, #00cfff44 20%, #fff0 100%);
+      border-radius: 8px;
+      margin: 0.7em 0;
+    }
+    iframe {
+      width: 100%;
+      height: 520px;
+      border: 1px solid cyan;
+      border-radius: 12px;
+      margin-top: 1em;
+    }
+    .header-logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2em;
+    }
+  </style>
+  <script>
+    let morphState = 0;
+    function toggleMorph() {
+      morphState = (morphState + 1) % 3;
+      const infra = document.getElementById('infra');
+      const it = document.getElementById('it');
+      const analytics = document.getElementById('analytics');
+      if (morphState === 1) {
+        infra.querySelector('h2').textContent = "Mission Focus";
+        it.querySelector('h2').textContent = "DevOps Pulse";
+        analytics.querySelector('h2').textContent = "Creative Surge";
+      } else if (morphState === 2) {
+        infra.querySelector('h2').textContent = "Recovery & Reflection";
+        it.querySelector('h2').textContent = "Empire Matrix";
+        analytics.querySelector('h2').textContent = "Strategic Command";
+      } else {
+        infra.querySelector('h2').textContent = "Infrastructure";
+        it.querySelector('h2').textContent = "IT Department";
+        analytics.querySelector('h2').textContent = "Analytics";
+      }
+    }
+
+    function activateDownloadMode() {
+      alert("🔻 Download Mode Activated\n\nImmersive learning tools enabled:\n- Harmonic overlays\n- Visual absorption mode\n- Neural rhythm syncing");
+    }
+  </script>
 </head>
+
 <body>
-  <h1>?? EmpireOS Dashboard</h1>
-  <img src="assets/logo.png" width="200" alt="Logo"/>
-  <p>Status: <strong>Initializing modules...</strong></p>
-  <iframe src="tests/pytest_report.html" width="100%" height="500" style="border:1px solid cyan;"></iframe>
+  <div class="header-logo">
+    <h1>🚀 EmpireOS Dashboard</h1>
+    <img src="assets/logo.png" width="120" alt="Logo" />
+  </div>
+
+  <button class="download-btn" onclick="activateDownloadMode()">Download Mode</button>
+  <button class="morph-btn" onclick="toggleMorph()">Morph Mode</button>
+
+  <div class="dashboard">
+    <div class="panel" id="infra">
+      <h2>Infrastructure</h2>
+      <div class="mini-chart"></div>
+      <p>System metrics, uptime, node diagnostics.<br><b>Status: Stable</b></p>
+    </div>
+    <div class="panel" id="map">
+      <h2>Future Sites & Business Locations</h2>
+      <div class="world-map"></div>
+      <p>Geo overlays for planned deployments.<br><b>Auto-sync enabled</b></p>
+    </div>
+    <div class="panel" id="it">
+      <h2>IT Department</h2>
+      <div class="mini-chart"></div>
+      <p>Blueprints, user access logs, device monitor.<br><b>Live: OK</b></p>
+    </div>
+    <div class="panel" id="analytics">
+      <h2>Analytics</h2>
+      <div class="mini-chart"></div>
+      <p>Metrics: AGI load, system health, Fibonacci boost.<br><b>Efficiency +12%</b></p>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    🔒 Nexus Status: <strong>Secure</strong> | Mode: <strong>Interactive</strong> | Version: <strong>1.0</strong>
+  </div>
+
+  <!-- Embed your test report -->
+  <iframe src="tests/pytest_report.html"></iframe>
 </body>
 </html>
+
